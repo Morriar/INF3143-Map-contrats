@@ -115,6 +115,7 @@ public class Map<K, V> {
      * @param k the key to lookup
      * @return true if the key exists in the Map
      */
+    @Requires("k != null")
     public boolean hasKey(K k) {
         for (MapNode<K, V> node : internalNodes) {
             if (node.key.equals(k)) {

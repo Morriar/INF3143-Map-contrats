@@ -95,6 +95,10 @@ public class Map<K, V> {
      *
      * @param k the key to remove
      */
+    @Requires({
+        "k != null", // k not null
+        "hasKey(k)" // k exists
+    })
     @Ensures("!hasKey(k)")
     public void remove(K k) {
         for (int i = 0; i < internalNodes.size(); i++) {

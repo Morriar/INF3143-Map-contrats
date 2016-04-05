@@ -76,6 +76,10 @@ public class Map<K, V> {
      * @param k the key to add
      * @param v the value associated to the key
      */
+    @Ensures({
+        "hasKey(k)", // has key
+        "get(k).equals(v)" // has value
+    })
     public void put(K k, V v) {
         internalNodes.add(new MapNode<>(k, v));
     }

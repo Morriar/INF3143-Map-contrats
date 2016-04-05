@@ -15,6 +15,7 @@
  */
 package map;
 
+import com.google.java.contract.Ensures;
 import java.util.ArrayList;
 
 /**
@@ -39,6 +40,7 @@ public class Map<K, V> {
      *
      * @return true is the Map is empty
      */
+    @Ensures("result == (size() == 0)")
     public boolean isEmpty() {
         return size() == 0;
     }

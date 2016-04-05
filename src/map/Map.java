@@ -89,6 +89,7 @@ public class Map<K, V> {
      *
      * @param k the key to remove
      */
+    @Ensures("!hasKey(k)")
     public void remove(K k) {
         for (int i = 0; i < internalNodes.size(); i++) {
             MapNode<K, V> node = internalNodes.get(i);

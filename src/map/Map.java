@@ -16,6 +16,7 @@
 package map;
 
 import com.google.java.contract.Ensures;
+import com.google.java.contract.Invariant;
 import com.google.java.contract.Requires;
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  * @param <K> keys type
  * @param <V> values type
  */
+@Invariant("size() >= 0")
 public class Map<K, V> {
 
     private ArrayList<MapNode<K, V>> internalNodes;

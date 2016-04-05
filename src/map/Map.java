@@ -31,6 +31,7 @@ public class Map<K, V> {
     /**
      * Create a new empty Map.
      */
+    @Ensures("size() == 0")
     public Map() {
         internalNodes = new ArrayList<>();
     }

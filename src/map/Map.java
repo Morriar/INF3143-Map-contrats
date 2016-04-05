@@ -78,6 +78,10 @@ public class Map<K, V> {
      * @param k the key to add
      * @param v the value associated to the key
      */
+    @Requires({
+        "k != null", // k not null
+        "!hasKey(k)" // k not already here
+    })
     @Ensures({
         "hasKey(k)", // has key
         "get(k).equals(v)" // has value

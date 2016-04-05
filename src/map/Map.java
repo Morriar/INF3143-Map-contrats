@@ -16,6 +16,7 @@
 package map;
 
 import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 import java.util.ArrayList;
 
 /**
@@ -61,6 +62,7 @@ public class Map<K, V> {
      * @param k the key to lookup
      * @return the value associated with the key
      */
+    @Requires("hasKey(k)")
     public V get(K k) {
         for (MapNode<K, V> node : internalNodes) {
             if (node.key.equals(k)) {

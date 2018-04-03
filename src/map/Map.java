@@ -74,7 +74,16 @@ public class Map<K, V> {
      * @param v the value associated to the key
      */
     public void put(K k, V v) {
-        internalNodes.add(new MapNode<>(k, v));
+    	if(!hasKey(k)) {
+    		internalNodes.add(new MapNode<>(k, v));
+    		return;
+    	}
+    	for (int i = 0; i < internalNodes.size(); i++) {
+            MapNode<K, V> node = internalNodes.get(i);
+            if (node.key.equals(k)) {
+                node.value = v;
+            }
+        }
     }
 
     /**

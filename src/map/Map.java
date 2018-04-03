@@ -17,12 +17,17 @@ package map;
 
 import java.util.ArrayList;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Invariant;
+import com.google.java.contract.Requires;
+
 /**
  * Simple Map implementation.
  *
  * @param <K> keys type
  * @param <V> values type
  */
+@Invariant("size() >= 0")
 public class Map<K, V> {
 
     private ArrayList<MapNode<K, V>> internalNodes;
@@ -30,6 +35,7 @@ public class Map<K, V> {
     /**
      * Create a new empty Map.
      */
+    @Ensures("size() == 0")
     public Map() {
         internalNodes = new ArrayList<>();
     }
@@ -39,6 +45,7 @@ public class Map<K, V> {
      *
      * @return true is the Map is empty
      */
+    @Ensures("result == (size() == 0)")
     public boolean isEmpty() {
         return size() == 0;
     }
@@ -58,6 +65,9 @@ public class Map<K, V> {
      * @param k the key to lookup
      * @return the value associated with the key
      */
+    @Requires({
+    	"k != null"
+    })
     public V get(K k) {
         for (MapNode<K, V> node : internalNodes) {
             if (node.key.equals(k)) {
@@ -73,6 +83,14 @@ public class Map<K, V> {
      * @param k the key to add
      * @param v the value associated to the key
      */
+    @Requires({
+    	"k != null"
+    })
+    @Ensures({
+    	"!old(hasKey(k)) ? size() == old(size()) + 1 : size() == old(size())",
+    	"hasKey(k)",
+    	"get(k) == v"
+    })
     public void put(K k, V v) {
     	if(!hasKey(k)) {
     		internalNodes.add(new MapNode<>(k, v));
@@ -91,6 +109,14 @@ public class Map<K, V> {
      *
      * @param k the key to remove
      */
+    @Requires({
+    	"k != null"
+    })
+    @Ensures({
+    	"!old(hasKey(k)) ? size() == old(size()) : size() == old(size() - 1)",
+    	"!hasKey(k)",
+    	"get(k) == null"
+    })
     public void remove(K k) {
         for (int i = 0; i < internalNodes.size(); i++) {
             MapNode<K, V> node = internalNodes.get(i);
@@ -106,6 +132,9 @@ public class Map<K, V> {
      * @param k the key to lookup
      * @return true if the key exists in the Map
      */
+    @Requires({
+    	"k != null"
+    })
     public boolean hasKey(K k) {
         for (MapNode<K, V> node : internalNodes) {
             if (node.key.equals(k)) {
